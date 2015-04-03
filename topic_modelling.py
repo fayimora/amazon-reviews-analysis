@@ -27,7 +27,7 @@ if __name__ == '__main__':
     texts = map(lambda s: tokeniser(s), lines)
     dictionary = Dictionary(texts)
     corpus = [dictionary.doc2bow(text) for text in texts]
-    lsa = train_lsi_model(corpus, dictionary)
+    lsi = train_lsi_model(corpus, dictionary)
 
 
 
