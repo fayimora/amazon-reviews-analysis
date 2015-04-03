@@ -1,5 +1,7 @@
 import gzip
-import simplejson
+import logging
+
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
 def parse(filename):
     f = gzip.open(filename, 'r')
@@ -17,13 +19,21 @@ def parse(filename):
     yield entry
 
 
-reviews = []
-lda_in = open('data/lda_in.txt', 'wa')
-for e in parse("data/Jewelry.txt.gz"):
-    review_json = simplejson.loads(simplejson.dumps(e))
-    reviews.append(review_json)
-    line = review_json['review/userId'] + " == " + review_json['review/text'] + "\n"
-    # line = review_json['review/text'] + "\n"
-    lda_in.write(line)
+def topics(raw_data, out_folder, id=False):
+    fname = 'topics_in_id.txt' if id else 'topics_in.txt'
+    fout = open(out_folder+fname, 'wa')
 
-lda_in.close()
+    logging.info('Parsing raw data and processing it')
+
+    for review in parse(raw_data):
+        if review:
+            if id:
+                line = review['review/userId'] + " == " + review['review/text'] + "\n"
+            else:
+                line = review['review/text'] + "\n"
+            fout.write(line)
+    fout.close()
+
+
+if __name__ == '__main__':
+    topics('data/Jewelry.txt.gz', 'data/')
