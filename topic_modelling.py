@@ -53,11 +53,11 @@ if __name__ == '__main__':
     tfidf_corpus = [tfidf[c] for c in corpus]
 
     logging.info("Training LSI model")
-    lsi = train_lsi_model(corpus, dictionary)
+    lsi = train_lsi_model(tfidf_corpus, dictionary)
     lsi_topics = prettify(lsi.show_topics())
 
     logging.info("Training LSA model")
-    lda = train_lda_model(corpus, dictionary)
+    lda = train_lda_model(tfidf_corpus, dictionary)
     lda_topics = prettify(lda.show_topics())
 
 
