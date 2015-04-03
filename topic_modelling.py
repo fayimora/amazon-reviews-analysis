@@ -20,6 +20,7 @@ def get_tokeniser(ngram_range=(1,1), stop_words='english'):
     vect = CountVectorizer(ngram_range=ngram_range, stop_words=stop_words)
     return vect.build_tokenizer()
 
+
 if __name__ == '__main__':
     lines = open('data/lda_in_noid.txt').readlines()
     tokeniser = get_tokeniser()
