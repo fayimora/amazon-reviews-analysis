@@ -7,7 +7,8 @@ from gensim.models.ldamodel import LdaModel
 from gensim.models.tfidfmodel import TfidfModel
 
 
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', \
+                    level=logging.INFO)
 
 
 def id2word(dictionary):
@@ -18,7 +19,8 @@ def id2word(dictionary):
 
 
 def train_lda_model(corpus, dictionary):
-    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20, alpha='auto', chunksize=500, passes=5, iterations=1000)
+    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20, \
+                   alpha='auto', chunksize=500, passes=5, iterations=1000)
     return lda
 
 
