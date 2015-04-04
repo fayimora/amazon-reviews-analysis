@@ -18,16 +18,16 @@ def id2word(dictionary):
 
 
 def train_lda_model(corpus, dictionary):
-    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=30)
+    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20, alpha='auto', chunksize=500, passes=5, iterations=1000)
     return lda
 
 
 def train_lsi_model(corpus, dictionary):
-    lsi = LsiModel(corpus=corpus, id2word=id2word(dictionary), num_topics=30)
+    lsi = LsiModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20)
     return lsi
 
 
-def get_tokeniser(ngram_range=(1,1), stop_words='english'):
+def get_tokeniser(ngram_range=(1,2), stop_words='english'):
     vect = CountVectorizer(ngram_range=ngram_range, stop_words=stop_words)
     return vect.build_analyzer()
 
@@ -38,7 +38,7 @@ def prettify(topics):
 
 if __name__ == '__main__':
     logging.info("Loading data from text file")
-    lines = open('data/lda_in_noid.txt').readlines()
+    lines = open('data/topics_in.txt').readlines()
 
     logging.info("Tokenising data")
     tokeniser = get_tokeniser()
