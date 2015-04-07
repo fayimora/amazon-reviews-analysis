@@ -18,9 +18,9 @@ def id2word(dictionary):
     return id2word
 
 
-def train_lda_model(corpus, dictionary):
-    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=10, \
-                   alpha='auto', chunksize=1000, passes=5, iterations=1000)
+def train_lda_model(corpus, dictionary, num_topics):
+    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=num_topics, \
+                   alpha='auto', chunksize=10000, passes=5, iterations=1000)
     return lda
 
 
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     # lsi_topic_distribution = [l for l in lsi[tfidf_corpus]]
 
     logging.info("Training LDA model")
-    lda = train_lda_model(tfidf_corpus, dictionary)
+    lda = train_lda_model(tfidf_corpus, dictionary, 30)
     lda_topics = prettify(lda.show_topics(-1))
     lda_topic_distribution = [l for l in lda[tfidf_corpus]]
 
