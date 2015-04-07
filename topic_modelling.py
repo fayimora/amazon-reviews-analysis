@@ -19,13 +19,13 @@ def id2word(dictionary):
 
 
 def train_lda_model(corpus, dictionary):
-    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20, \
-                   alpha='auto', chunksize=500, passes=5, iterations=1000)
+    lda = LdaModel(corpus=corpus, id2word=id2word(dictionary), num_topics=10, \
+                   alpha='auto', chunksize=1000, passes=5, iterations=1000)
     return lda
 
 
 def train_lsi_model(corpus, dictionary):
-    lsi = LsiModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20)
+    lsi = LsiModel(corpus=corpus, id2word=id2word(dictionary), num_topics=10)
     return lsi
 
 
@@ -54,12 +54,14 @@ if __name__ == '__main__':
     tfidf = TfidfModel(corpus)
     tfidf_corpus = [tfidf[c] for c in corpus]
 
-    logging.info("Training LSI model")
-    lsi = train_lsi_model(tfidf_corpus, dictionary)
-    lsi_topics = prettify(lsi.show_topics())
+    # logging.info("Training LSI model")
+    # lsi = train_lsi_model(tfidf_corpus, dictionary)
+    # lsi_topics = prettify(lsi.show_topics(-1))
+    # lsi_topic_distribution = [l for l in lsi[tfidf_corpus]]
 
-    logging.info("Training LSA model")
+    logging.info("Training LDA model")
     lda = train_lda_model(tfidf_corpus, dictionary)
-    lda_topics = prettify(lda.show_topics())
+    lda_topics = prettify(lda.show_topics(-1))
+    lda_topic_distribution = [l for l in lda[tfidf_corpus]]
 
 
