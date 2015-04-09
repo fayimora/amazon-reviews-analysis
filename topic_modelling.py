@@ -20,7 +20,7 @@ def id2word(dictionary):
 
 def train_lda_model(corpus, dictionary, num_topics):
     lda = LdaModel(corpus=corpus, num_topics=num_topics, id2word=id2word(dictionary), \
-                    chunksize=20, passes=5, iterations=1000)
+                    alpha='auto', update_every=1, chunksize=100, passes=2, iterations=50)
     return lda
 
 
@@ -29,7 +29,7 @@ def train_lsi_model(corpus, dictionary):
     return lsi
 
 
-def get_tokeniser(ngram_range=(1,2), stop_words='english'):
+def get_tokeniser(ngram_range=(1,1), stop_words='english'):
     vect = CountVectorizer(ngram_range=ngram_range, stop_words=stop_words)
     return vect.build_analyzer()
 
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     # lsi_topic_distribution = [l for l in lsi[tfidf_corpus]]
 
     logging.info("Training LDA model")
-    lda = train_lda_model(tfidf_corpus, dictionary, 5)
+    lda = train_lda_model(tfidf_corpus, dictionary, 20)
     lda_raw_topics = lda.show_topics(-1)
     lda_pretty_topics = prettify(lda.show_topics(-1))
     lda_topic_distribution = [l for l in lda[tfidf_corpus]]
