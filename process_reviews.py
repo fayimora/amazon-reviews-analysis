@@ -19,8 +19,8 @@ def parse(filename):
     yield entry
 
 
-def topics(raw_data, out_folder, id=False):
-    fname = 'topics_in_id.txt' if id else 'topics_in.txt'
+def topics(raw_data, out_folder, name, id=False):
+    fname = '%s_topics_in_id.txt' % name if id else '%s_topics_in.txt' % name
     fout = open(out_folder+fname, 'wa')
 
     logging.info('Parsing raw data and processing it')
@@ -36,4 +36,4 @@ def topics(raw_data, out_folder, id=False):
 
 
 if __name__ == '__main__':
-    topics('data/Jewelry.txt.gz', 'data/')
+    topics('data/Electronics.txt.gz', 'data/', 'electronics')
