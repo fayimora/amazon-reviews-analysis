@@ -47,9 +47,9 @@ class TopicModelHelpers:
         res = map(lambda (i, per): (per, self.reviews[i]), review_ids)
         return res
 
-    def filter_reviews(self, token, topic_id):
+    def filter_reviews(self, token, topic_id, threshold):
         """ This function takes a token and a topic_id. It returns the reviews
         that have a proportion of the argument topic and contains the argument token."""
-        return filter(lambda s: token in s[1].lower(), self.get_reviews_in_topic(topic_id))
+        return filter(lambda s: token in s[1].lower(), self.get_reviews_in_topic(topic_id, threshold=threshold))
 
 
