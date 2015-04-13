@@ -5,7 +5,7 @@ from topic_modelling import load
 
 
 class TopicModelHelpers:
-    def __init__(self, fnames, model=None):
+    def __init__(self, fnames, model=None, corpus=None, dictionary=None):
         """`fnames` is an array of files for [lda_model, distribution]"""
         self.reviews = open('data/electronics_topics_in.txt').readlines()
 
@@ -16,9 +16,14 @@ class TopicModelHelpers:
         else:
             self.lda = LdaModel.load(fnames[0])
 
-        print "Loading corpus and dictionary"
-        self.corpus = load("data/models/electronics_tfidf_corpus.pkl")
-        self.dictionary = load("data/models/electronics_dict.pkl")
+        if corpus is not None:
+            print "Using argument corpus and dictionary"
+            self.corpus = corpus
+            self.dictionary = dictionary
+        else:
+            print "Loading corpus and dictionary from file"
+            self.corpus = load("data/models/electronics_tfidf_corpus.pkl")
+            self.dictionary = load("data/models/electronics_dict.pkl")
 
         print "Loading review-topic distribution..."
         self.review_dist = [l for l in self.lda[self.corpus]]
