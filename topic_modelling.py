@@ -27,7 +27,8 @@ def train_lda_model(corpus, dictionary, num_topics):
 
 
 def train_lsi_model(corpus, dictionary):
-    lsi = LsiModel(corpus=corpus, id2word=id2word(dictionary), num_topics=10)
+    lsi = LsiModel(corpus=corpus, id2word=id2word(dictionary), num_topics=20, chunksize=10000,\
+                   onepass=True)
     return lsi
 
 
