@@ -37,3 +37,5 @@ def topics(raw_data, out_folder, name, id=False):
 
 if __name__ == '__main__':
     topics('data/Electronics.txt.gz', 'data/', 'electronics')
+
+
